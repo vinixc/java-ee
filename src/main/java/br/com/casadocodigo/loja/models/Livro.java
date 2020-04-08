@@ -18,7 +18,7 @@ import javax.persistence.SequenceGenerator;
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_livro", sequenceName = "seq_livro")
 @NamedQueries(value = {
 		@NamedQuery(name = Livro.FIND_FULL_LIVRO, query = ""
-				+ "SELECT l FROM Livro l")
+				+ "SELECT distinct(l) FROM Livro l join fetch l.autores")
 })
 public class Livro {
 	
