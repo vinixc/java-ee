@@ -29,7 +29,7 @@ public class AdminLivrosBean implements Serializable{
 		System.out.println("Livro cadastrado: " + livro);
 		livroDao.salvar(livro);
 		System.out.println("Livro salvo com sucesso!");
-		Livro test = livroDao.findById(livro.getId());
+		Livro test = livroDao.findById(Livro.class, livro.getId());
 		System.out.println(test);
 	}
 	
