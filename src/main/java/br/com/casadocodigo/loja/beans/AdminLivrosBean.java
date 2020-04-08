@@ -1,7 +1,7 @@
 package br.com.casadocodigo.loja.beans;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 
+import br.com.casadocodigo.loja.daos.AutorDao;
 import br.com.casadocodigo.loja.daos.LivroDao;
 import br.com.casadocodigo.loja.models.Autor;
 import br.com.casadocodigo.loja.models.Livro;
@@ -23,16 +24,22 @@ public class AdminLivrosBean implements Serializable{
 	@Inject
 	private LivroDao livroDao;
 	
+	private List<Integer> autoresId = new ArrayList<Integer>();
+	
+	@Inject
+	private AutorDao autorDao;
+	
 	public AdminLivrosBean() {
 	}
 	
 	@Transactional
 	public void salvar() {
-		System.out.println("Livro cadastrado: " + livro);
+		for (Integer autorId : autoresId) {
+			livro.getAutores().add(new Autor(autorId));
+		}
 		livroDao.salvar(livro);
-		System.out.println("Livro salvo com sucesso!");
-		Livro test = livroDao.findById(Livro.class, livro.getId());
-		System.out.println(test);
+		this.livro = new Livro();
+		this.autoresId = new ArrayList<Integer>();
 	}
 	
 	@Transactional
@@ -42,7 +49,7 @@ public class AdminLivrosBean implements Serializable{
 	}
 	
 	public List<Autor> getAutores(){
-		return Arrays.asList(new Autor(1, "Paulo Silveira"), new Autor(2, "Sergio Lopes"));
+		return autorDao.findAll(Autor.class);
 	}
 
 	public Livro getLivro() {
@@ -51,6 +58,14 @@ public class AdminLivrosBean implements Serializable{
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;
+	}
+
+	public List<Integer> getAutoresId() {
+		return autoresId;
+	}
+
+	public void setAutoresId(List<Integer> autoresId) {
+		this.autoresId = autoresId;
 	}
 
 }

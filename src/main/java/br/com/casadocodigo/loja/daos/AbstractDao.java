@@ -2,6 +2,7 @@ package br.com.casadocodigo.loja.daos;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -56,5 +57,9 @@ public class AbstractDao<E> implements Serializable{
 			return null;
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<E> findAll(Class<E> e){
+		return em.createQuery(String.format("SELECT e FROM %s e", e.getName())).getResultList();
+	}
 }
