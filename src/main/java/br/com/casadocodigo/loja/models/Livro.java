@@ -2,9 +2,22 @@ package br.com.casadocodigo.loja.models;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
+
+@Entity
+@SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_livro", sequenceName = "seq_livro")
 public class Livro {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_livro")
+	private Integer id;
 	private String titulo;
+	@Lob
 	private String descricao;
 	private BigDecimal preco;
 	private Integer numeroPaginas;
