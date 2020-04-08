@@ -1,6 +1,7 @@
 package br.com.casadocodigo.loja.beans;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -9,6 +10,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import br.com.casadocodigo.loja.daos.LivroDao;
+import br.com.casadocodigo.loja.models.Autor;
 import br.com.casadocodigo.loja.models.Livro;
 
 @Named
@@ -37,6 +39,10 @@ public class AdminLivrosBean implements Serializable{
 	public void buscaTodos() {
 		List<Livro> livros = livroDao.findFull();
 		livros.stream().forEach(System.out::println);
+	}
+	
+	public List<Autor> getAutores(){
+		return Arrays.asList(new Autor(1, "Paulo Silveira"), new Autor(2, "Sergio Lopes"));
 	}
 
 	public Livro getLivro() {
