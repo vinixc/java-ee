@@ -25,11 +25,12 @@ public class AdminLivrosBean implements Serializable{
 	
 	@Inject
 	private LivroDao livroDao;
-	
-	private List<Integer> autoresId = new ArrayList<Integer>();
-	
 	@Inject
 	private AutorDao autorDao;
+	@Inject
+	private FacesContext context;
+	
+	private List<Integer> autoresId = new ArrayList<Integer>();
 	
 	public AdminLivrosBean() {
 	}
@@ -41,7 +42,6 @@ public class AdminLivrosBean implements Serializable{
 		}
 		livroDao.salvar(livro);
 		
-		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		context.addMessage(null, new FacesMessage("Livro Cadastrado com Sucesso!"));
 		
