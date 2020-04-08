@@ -7,11 +7,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_livro", sequenceName = "seq_livro")
+@NamedQueries(value = {
+		@NamedQuery(name = Livro.FIND_FULL_LIVRO, query = ""
+				+ "SELECT l FROM Livro l")
+})
 public class Livro {
+	
+	public static final String FIND_FULL_LIVRO = "Livro.findFullLivro";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_livro")
@@ -46,9 +54,12 @@ public class Livro {
 	public void setNumeroPaginas(Integer numeroPaginas) {
 		this.numeroPaginas = numeroPaginas;
 	}
+	public Integer getId() {
+		return id;
+	}
 	@Override
 	public String toString() {
-		return "Livro [titulo=" + titulo + ", descricao=" + descricao + ", preco=" + preco + ", numeroPaginas="
-				+ numeroPaginas + "]";
+		return "Livro [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", preco=" + preco
+				+ ", numeroPaginas=" + numeroPaginas + "]";
 	}
 }
