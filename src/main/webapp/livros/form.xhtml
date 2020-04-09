@@ -43,6 +43,14 @@
 			</h:selectManyListbox>
 			<h:message for="autores"/>
 		</div>
+		<div>
+			<h:outputLabel value="Data de Publicação"/>
+			<h:inputText value="#{adminLivrosBean.livro.dataPublicacao.time}" id="dataPublicacao"
+				required="true">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:inputText>
+			<h:message for="dataPublicacao"/>
+		</div>
 		<h:commandButton value="Cadastrar" action="#{adminLivrosBean.salvar()}">
 			<f:ajax execute="@this" render="@form"/>
 		</h:commandButton>
