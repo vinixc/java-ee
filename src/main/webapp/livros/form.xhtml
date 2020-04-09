@@ -7,7 +7,7 @@
 	
 	<h:form id="form">
 		<div>
-		<h:messages />
+		<h:messages globalOnly="false" id="messagesFull"/>
 			<h:outputLabel value="Título"/>
 			<h:inputText value="#{adminLivrosBean.livro.titulo}"
 			 validator="#{adminLivrosBean.validateTitulo}" id="titulo"
