@@ -6,7 +6,9 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -37,6 +39,13 @@ public class AdminLivrosBean implements Serializable{
 	
 	@Transactional
 	public String salvar() {
+		if(this.livro.getTitulo().trim().isEmpty()) {
+			FacesMessage msg = new FacesMessage("Titulo não pode ser vazio.");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, msg);
+			return null;
+		}
+		
 		for (Integer autorId : autoresId) {
 			livro.getAutores().add(new Autor(autorId));
 		}
@@ -72,6 +81,12 @@ public class AdminLivrosBean implements Serializable{
 
 	public void setAutoresId(List<Integer> autoresId) {
 		this.autoresId = autoresId;
+	}
+	
+	public void validateTitulo(FacesContext context, UIComponent component,
+			Object value) throws ValidatorException {
+		
+		System.out.println(value);
 	}
 
 }

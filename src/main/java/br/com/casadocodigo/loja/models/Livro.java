@@ -13,6 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_livro", sequenceName = "seq_livro")
@@ -27,13 +33,24 @@ public class Livro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_livro")
 	private Integer id;
+	
+	@NotNull(message = "O titulo não pode ser nulo")
 	private String titulo;
+	
 	@Lob
+	@Length(min = 10)
+	@NotNull
 	private String descricao;
+	
+	@DecimalMin("20")
 	private BigDecimal preco;
+	
+	@Min(50)
 	private Integer numeroPaginas;
 	
 	@ManyToMany
+	@Size(min = 1)
+	@NotNull
 	private List<Autor> autores = new ArrayList<Autor>();
 	
 	public String getTitulo() {
