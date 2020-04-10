@@ -1,7 +1,6 @@
 package br.com.casadocodigo.loja.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -32,8 +31,6 @@ public class AdminLivrosBean implements Serializable{
 	@Inject
 	private FacesContext context;
 	
-	private List<Integer> autoresId = new ArrayList<Integer>();
-	
 	public AdminLivrosBean() {
 	}
 	
@@ -46,9 +43,6 @@ public class AdminLivrosBean implements Serializable{
 			return null;
 		}
 		
-		for (Integer autorId : autoresId) {
-			livro.getAutores().add(new Autor(autorId));
-		}
 		livroDao.salvar(livro);
 		
 		context.getExternalContext().getFlash().setKeepMessages(true);
@@ -73,14 +67,6 @@ public class AdminLivrosBean implements Serializable{
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;
-	}
-
-	public List<Integer> getAutoresId() {
-		return autoresId;
-	}
-
-	public void setAutoresId(List<Integer> autoresId) {
-		this.autoresId = autoresId;
 	}
 	
 	public void validateTitulo(FacesContext context, UIComponent component,
