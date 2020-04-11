@@ -30,12 +30,12 @@ public class CheckoutBean implements Serializable{
 		compra.setUsuario(usuario);
 		carrinho.finalizar(compra);
 		
-		String contextName = facesContext.getExternalContext().getContextName();
+		String contextName = facesContext.getExternalContext().getRequestContextPath();
 		HttpServletResponse response = (HttpServletResponse)
 				facesContext.getExternalContext().getResponse();
 		
-		response.setStatus(307);
-		response.setHeader("Location", "/" + contextName + "/service/pagamento?uuid=" + compra.getUuid());
+		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
+		response.setHeader("Location", contextName + "/services/pagamento?uuid=" + compra.getUuid());
 	}
 
 	public Usuario getUsuario() {
