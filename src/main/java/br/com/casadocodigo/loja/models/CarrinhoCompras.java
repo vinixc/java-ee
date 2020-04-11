@@ -14,7 +14,6 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 
 import br.com.casadocodigo.loja.daos.CompraDao;
-import br.com.casadocodigo.loja.service.PagamentoGateway;
 
 @Named
 @SessionScoped
@@ -23,9 +22,6 @@ public class CarrinhoCompras implements Serializable{
 		
 	@Inject
 	private CompraDao compraDao;
-	
-	@Inject
-	private PagamentoGateway pagamentoGateway;
 	
 	private Set<CarrinhoItem> itens = new HashSet<>();
 	
@@ -57,14 +53,9 @@ public class CarrinhoCompras implements Serializable{
 		return itens.stream().mapToInt(item -> item.getQuantidade()).sum();
 	}
 
-	public void finalizar(Usuario usuario) {
-		Compra compra = new Compra();
-		compra.setUsuario(usuario);
+	public void finalizar(Compra compra) {
 		compra.setItens(this.toJson());
 		compraDao.salvar(compra);
-		
-		String response = pagamentoGateway.pagamento(getTotal());
-		System.out.println(response);
 	}
 
 	private String toJson() {

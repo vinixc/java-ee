@@ -1,6 +1,7 @@
 package br.com.casadocodigo.loja.models;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -23,6 +25,13 @@ public class Compra implements Serializable{
 	private Usuario usuario;
 	
 	private String itens;
+	
+	private String uuid;
+	
+	@PrePersist
+	public void createUUID() {
+		this.uuid = UUID.randomUUID().toString();
+	}
 
 	public Integer getId() {
 		return id;
@@ -72,6 +81,13 @@ public class Compra implements Serializable{
 	public void setItens(String itens) {
 		this.itens = itens;
 	}
-	
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	
 }
