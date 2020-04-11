@@ -6,6 +6,10 @@ import br.com.casadocodigo.loja.models.Livro;
 
 public class LivroDao extends AbstractDao<Livro>{
 	private static final long serialVersionUID = 2885753061340543030L;
+	
+	public Livro buscaLivroPeloId(Integer id) {
+		return em.createNamedQuery(Livro.FIND_LIVRO_BY_ID, Livro.class).setParameter("id", id).getSingleResult();
+	}
 		
 	public List<Livro> findFull(){
 		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class).getResultList();

@@ -28,10 +28,13 @@ import org.hibernate.validator.constraints.Length;
 @NamedQueries(value = {
 		@NamedQuery(name = Livro.FIND_FULL_LIVRO, query = ""
 				+ "SELECT distinct(l) FROM Livro l join fetch l.autores order by l.dataPublicacao desc"),
+		@NamedQuery(name = Livro.FIND_LIVRO_BY_ID, query = ""
+				+ "SELECT distinct(l) FROM Livro l join fetch l.autores WHERE l.id = :id")
 })
 public class Livro {
 	
 	public static final String FIND_FULL_LIVRO = "Livro.findFullLivro";
+	public static final String FIND_LIVRO_BY_ID = "Livro.findLivroById";
 
 	
 	@Id
@@ -111,6 +114,9 @@ public class Livro {
 	}
 	public void setCapaPath(String capaPath) {
 		this.capaPath = capaPath;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }
