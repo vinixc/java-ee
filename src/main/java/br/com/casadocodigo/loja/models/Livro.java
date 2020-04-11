@@ -59,6 +59,8 @@ public class Livro {
 	@NotNull
 	private List<Autor> autores = new ArrayList<Autor>();
 	
+	private String capaPath;
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -102,6 +104,12 @@ public class Livro {
 	}
 	public void setDataPublicacao(Calendar dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
+	}
+	public String getCapaPath() {
+		return capaPath;
+	}
+	public void setCapaPath(String capaPath) {
+		this.capaPath = capaPath;
 	}
 	
 }
