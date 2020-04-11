@@ -27,11 +27,12 @@ import org.hibernate.validator.constraints.Length;
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_livro", sequenceName = "seq_livro")
 @NamedQueries(value = {
 		@NamedQuery(name = Livro.FIND_FULL_LIVRO, query = ""
-				+ "SELECT distinct(l) FROM Livro l join fetch l.autores")
+				+ "SELECT distinct(l) FROM Livro l join fetch l.autores order by l.dataPublicacao desc"),
 })
 public class Livro {
 	
 	public static final String FIND_FULL_LIVRO = "Livro.findFullLivro";
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_livro")
