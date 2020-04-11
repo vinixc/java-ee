@@ -31,6 +31,10 @@ public class CarrinhoComprasBean implements Serializable{
 		return "carrinho?faces-redirect=true";
 	}
 	
+	public void remover(CarrinhoItem item) {
+		carrinho.remover(item);
+	}
+	
 	public List<CarrinhoItem> getItens(){
 		return carrinho.getItens();
 	}
