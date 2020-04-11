@@ -273,7 +273,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ui:repeat var="carrinhoItem" value="#{carrinhoComprasBean.itens}">
+			<ui:repeat var="carrinhoItem" value="#{carrinhoCompras.itens}">
 			<tr>
 				<td class="formularioDoCarrinho-item">
 					<a href="#{request.contextPath}/livro-detalhe.xhtml?id=#{carrinhoItem.livro.id}">
