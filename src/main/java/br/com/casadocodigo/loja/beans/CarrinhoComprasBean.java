@@ -1,9 +1,11 @@
 package br.com.casadocodigo.loja.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import br.com.casadocodigo.loja.daos.LivroDao;
 import br.com.casadocodigo.loja.models.CarrinhoCompras;
@@ -20,11 +22,16 @@ public class CarrinhoComprasBean implements Serializable{
 	@Inject
 	private CarrinhoCompras carrinho;
 	
+	@Transactional
 	public String add(Integer id) {
 		Livro livro = livroDao.buscaLivroPeloId(id);
 		CarrinhoItem item = new CarrinhoItem(livro);
 		carrinho.add(item);
 		
 		return "carrinho?faces-redirect=true";
+	}
+	
+	public List<CarrinhoItem> getItens(){
+		return carrinho.getItens();
 	}
 }
