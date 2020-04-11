@@ -8,18 +8,25 @@ public class LivroDao extends AbstractDao<Livro>{
 	private static final long serialVersionUID = 2885753061340543030L;
 	
 	public Livro buscaLivroPeloId(Integer id) {
-		return em.createNamedQuery(Livro.FIND_LIVRO_BY_ID, Livro.class).setParameter("id", id).getSingleResult();
+		return em.createNamedQuery(Livro.FIND_LIVRO_BY_ID, Livro.class)
+				.setParameter("id", id)
+				.getSingleResult();
 	}
 		
 	public List<Livro> findFull(){
-		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class).getResultList();
+		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class)
+				.getResultList();
 	}
 	
 	public List<Livro> findUltimosLancamentos(){
-		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class).setMaxResults(5).getResultList();
+		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class)
+				.setMaxResults(5)
+				.getResultList();
 	}
 	
 	public List<Livro> findDemaisLivros(){
-		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class).setFirstResult(6).getResultList();
+		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class)
+				.setFirstResult(5)
+				.getResultList();
 	}
 }

@@ -7,11 +7,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
+//@Stateful
 public class AbstractDao<E> implements Serializable{
 	private static final long serialVersionUID = 1861150012174774787L;
 	
-	@PersistenceContext
+	@PersistenceContext(type = PersistenceContextType.TRANSACTION)
+//	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	public EntityManager em;
 	
 	public void salvar(E e) {
