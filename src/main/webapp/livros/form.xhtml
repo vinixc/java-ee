@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	
-	<h:form id="form">
+	<h:form id="form" enctype="multipart/form-data">
 		<div>
 		<h:messages globalOnly="false" id="messagesFull"/>
 			<h:outputLabel value="Título"/>
@@ -48,6 +48,11 @@
 				required="true">
 			</h:inputText>
 			<h:message for="dataPublicacao"/>
+		</div>
+		<div>
+			<h:outputLabel value="Capa do Livro"/>
+			<h:inputFile value="#{adminLivrosBean.capaLivro}" id="capaLivro"/>
+			<h:message for="capaLivro"/>
 		</div>
 		<h:commandButton value="Cadastrar" action="#{adminLivrosBean.salvar()}">
 			<f:ajax execute="@this" render="@form"/>
