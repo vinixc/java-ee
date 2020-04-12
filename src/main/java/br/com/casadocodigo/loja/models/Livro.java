@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_livro", sequenceName = "seq_livro")
+@Cacheable
 @NamedQueries(value = {
 		@NamedQuery(name = Livro.FIND_FULL_LIVRO, query = ""
 				+ "SELECT distinct(l) FROM Livro l join fetch l.autores order by l.dataPublicacao desc"),
