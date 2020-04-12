@@ -7,6 +7,13 @@
 		<jta-data-source>java:jboss/datasources/casadocodigoDS</jta-data-source>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<properties>
+			
+			<!-- TEMPO PARA BUSCAR NOVAMENTE AS ENTIDADES E ATUALIZAR -->
+			<property name="hibernate.cache.infinispan.entity.expiration.lifespan" value="900000"/>
+			
+			<!-- TEMPO QUE MANTEM A ENTIDADE SEM USAR-->
+			<property name="hibernate.cache.infinispan.entity.expiration.max_idle" value="300000"/>
+			
 			<property name="hibernate.cache.use_query_cache" value="true"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
 			<property name="hibernate.show_sql" value="true"/>
