@@ -1,14 +1,21 @@
 package br.com.casadocodigo.loja.models;
 
+import java.io.Serializable;
+
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_autor", sequenceName = "seq_autor")
-public class Autor {
+@Cacheable
+@XmlRootElement
+public class Autor implements Serializable{
+	private static final long serialVersionUID = 6317619798132708991L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_autor")

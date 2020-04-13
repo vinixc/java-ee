@@ -21,6 +21,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -33,6 +34,7 @@ import org.hibernate.validator.constraints.Length;
 		@NamedQuery(name = Livro.FIND_LIVRO_BY_ID, query = ""
 				+ "SELECT distinct(l) FROM Livro l join fetch l.autores WHERE l.id = :id")
 })
+@XmlRootElement
 public class Livro {
 	
 	public static final String FIND_FULL_LIVRO = "Livro.findFullLivro";

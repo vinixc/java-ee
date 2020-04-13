@@ -23,6 +23,11 @@ public class LivroDao extends AbstractDao<Livro>{
 		
 	}
 	
+	public void limpaCacheUltimosLancamentos() {
+		SessionFactory factory = em.getEntityManagerFactory().unwrap(SessionFactory.class);
+		factory.getCache().evictQueryRegion("homeUltimosLancamentos");
+	}
+	
 	public Livro buscaLivroPeloId(Integer id) {
 		return em.createNamedQuery(Livro.FIND_LIVRO_BY_ID, Livro.class)
 				.setParameter("id", id)
@@ -38,7 +43,7 @@ public class LivroDao extends AbstractDao<Livro>{
 		return em.createNamedQuery(Livro.FIND_FULL_LIVRO, Livro.class)
 				.setMaxResults(5)
 				.setHint(QueryHints.HINT_CACHEABLE, true)
-				.setHint(QueryHints.HINT_CACHE_REGION, "home")
+				.setHint(QueryHints.HINT_CACHE_REGION, "homeUltimosLancamentos")
 				.getResultList();
 	}
 	

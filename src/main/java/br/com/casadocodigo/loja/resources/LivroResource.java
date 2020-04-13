@@ -23,8 +23,9 @@ public class LivroResource {
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Transactional
 	public List<Livro> ultimosLancamentosJson() {
-		
-		return livroDao.findUltimosLancamentos();
+		livroDao.limpaCacheUltimosLancamentos();
+		List<Livro> findUltimosLancamentos = livroDao.findUltimosLancamentos();
+		return findUltimosLancamentos;
 	}
 
 }
