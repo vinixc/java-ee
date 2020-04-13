@@ -1,12 +1,23 @@
 package br.com.casadocodigo.loja.service;
 
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
 import javax.inject.Inject;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 
 import br.com.casadocodigo.loja.daos.CompraDao;
 import br.com.casadocodigo.loja.infra.MailSender;
 import br.com.casadocodigo.loja.models.Compra;
 
-public class EnviaEmailCompra {
+@MessageDriven(activationConfig = {
+		@ActivationConfigProperty(
+				propertyName = "destinationLookup",
+				propertyValue = "java:/jms/topics/CarrinhoComprasTopico")
+})
+public class EnviaEmailCompra implements MessageListener{
 	
 	@Inject
 	private MailSender mailSender;
@@ -14,14 +25,21 @@ public class EnviaEmailCompra {
 	@Inject
 	private CompraDao compraDao;
 	
-	public void enviar(String uuid) {
-		Compra compra = compraDao.buscaPorUuid(uuid);
+	public void onMessage(Message message) {
+		try {
+		TextMessage textMessage = (TextMessage) message;
+		
+		Compra compra;
+			compra = compraDao.buscaPorUuid(textMessage.getText());
 		String messageBody = "Sua compra foi realizada com sucesso, com numero de pedido " + compra.getUuid();
 		
 		mailSender.send("compras@casacodigo.com.br",
 					compra.getUsuario().getEmail(),
 					"Nova compra na CDC",
 					messageBody);
+		
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
 	}
-
 }
