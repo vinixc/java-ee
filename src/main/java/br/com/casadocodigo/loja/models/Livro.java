@@ -21,6 +21,10 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.Length;
@@ -35,6 +39,7 @@ import org.hibernate.validator.constraints.Length;
 				+ "SELECT distinct(l) FROM Livro l join fetch l.autores WHERE l.id = :id")
 })
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Livro {
 	
 	public static final String FIND_FULL_LIVRO = "Livro.findFullLivro";
@@ -65,6 +70,8 @@ public class Livro {
 	@ManyToMany
 	@Size(min = 1)
 	@NotNull
+	@XmlElementWrapper(name = "autores")
+	@XmlElement(name = "autor")
 	private List<Autor> autores = new ArrayList<Autor>();
 	
 	private String capaPath;
