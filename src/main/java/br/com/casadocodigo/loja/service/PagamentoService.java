@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import br.com.casadocodigo.loja.daos.CompraDao;
+import br.com.casadocodigo.loja.infra.MailSender;
 import br.com.casadocodigo.loja.models.Compra;
 
 @Path("/pagamento")
@@ -30,6 +31,9 @@ public class PagamentoService {
 	
 	@Inject
 	private CompraDao compraDao;
+	
+	@Inject
+	private MailSender mailSender;
 	
 	private static ExecutorService executor = Executors.newFixedThreadPool(50);
 	
@@ -45,6 +49,14 @@ public class PagamentoService {
 					.queryParam("msg", "Compra Realizada com Sucesso").build();
 			
 			Response response = Response.seeOther(responseURI).build();
+			
+			String messageBody = "Sua compra foi realizada com sucesso, com numero de pedido " + compra.getUuid();
+			
+			mailSender.send("compras@casacodigo.com.br",
+						compra.getUsuario().getEmail(),
+						"Nova compra na CDC",
+						messageBody);
+			
 			ar.resume(response);
 			}catch(Exception e) {
 				ar.resume(new WebApplicationException(e));
