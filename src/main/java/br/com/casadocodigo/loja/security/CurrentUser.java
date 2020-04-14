@@ -37,4 +37,9 @@ public class CurrentUser {
 			systemUser = securityDao.findByEmail(email);
 		}
 	}
+	
+	public String logout() {
+		request.getSession().invalidate();
+		return "/livros/lista.xhtml?faces-redirect=true";
+	}
 }
