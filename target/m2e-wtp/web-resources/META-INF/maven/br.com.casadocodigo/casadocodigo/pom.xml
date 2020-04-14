@@ -117,8 +117,18 @@
 			<version>4.5.3.Final</version>
 		</dependency>
 
-
-
+		<!-- https://mvnrepository.com/artifact/org.jboss.as/jboss-as-security -->
+		<dependency>
+			<groupId>org.jboss.as</groupId>
+			<artifactId>jboss-as-security</artifactId>
+			<version>7.2.0.Final</version>
+			<exclusions>
+				 <exclusion>
+         			 <groupId>com.sun</groupId>
+          			<artifactId>tools</artifactId>
+       		 </exclusion>
+			</exclusions>
+		</dependency>
 
 	</dependencies>
 	<dependencyManagement>
