@@ -19,4 +19,8 @@ public class UsuariosSession {
 		return sessions;
 	}
 
+	public void remove(Session session) {
+		sessions.remove(session);
+	}
+
 }
