@@ -3,7 +3,9 @@ package br.com.casadocodigo.loja.beans;
 import java.io.Serializable;
 
 import javax.enterprise.inject.Model;
+import javax.inject.Inject;
 
+import br.com.casadocodigo.loja.lojas.websockets.PromosEndpoint;
 import br.com.casadocodigo.loja.models.Promo;
 
 @Model
@@ -12,9 +14,11 @@ public class AdminPromosBean implements Serializable{
 	
 	private Promo promo = new Promo();
 	
+	@Inject
+	private PromosEndpoint promos;
+	
 	public void salvar() {
-		System.out.println(promo.getTitulo());
-		System.out.println(promo.getLivro());
+		promos.send(promo);
 		promo = new Promo();
 	}
 
