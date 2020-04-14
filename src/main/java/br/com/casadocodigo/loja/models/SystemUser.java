@@ -9,11 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "seq_system_user", sequenceName = "seq_system_user")
+@NamedQueries(value = {
+		@NamedQuery(name = SystemUser.FIND_BY_EMAIL, query = ""
+				+ "SELECT su FROM SystemUser su JOIN FETCH su.roles WHERE su.email = :email")
+})
 public class SystemUser {
+	
+	public static final String FIND_BY_EMAIL = "SystemUser.findByEmail";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_user")
